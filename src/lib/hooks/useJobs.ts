@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { jobsData, Job } from "@/lib/jobsData";
+import { jobsData } from "@/lib/jobsData";
 
 export function useJobs() {
   const getTopCompanies = () => jobsData.filter((job) => job.isTopCompany);
