@@ -120,14 +120,14 @@ export default function LoginPage() {
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background rounded-xl" />
           <div className="relative h-full">
             <Image
-              src="/placeholder.svg?height=600&width=800"
+              src="/loginBg.png"
               alt="Professional networking"
               width={800}
               height={600}
               className="rounded-xl object-cover h-full"
               priority
             />
-            <div className="absolute bottom-8 left-8 right-8 bg-background/80 backdrop-blur-sm p-6 rounded-lg">
+            {/* <div className="absolute bottom-8 left-8 right-8 bg-background/80 backdrop-blur-sm p-6 rounded-lg">
               <h2 className="text-2xl font-semibold mb-2">
                 Find your perfect match
               </h2>
@@ -135,7 +135,7 @@ export default function LoginPage() {
                 Whether you're looking for opportunities, talent, or building
                 your company, we've got you covered.
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
