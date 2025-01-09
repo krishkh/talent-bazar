@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useCandidateData } from "@/lib/hooks/useCandidateData";
+import { useCandidate } from "@/lib/hooks/useCandidate";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -45,37 +45,35 @@ const formSchema = z.object({
 
 export default function CandidateLogin() {
   const router = useRouter();
-  const { createOrUpdateCandidate, getCandidate } = useCandidateData();
+  const { candidate, updateCandidate } = useCandidate();
   const [isLoading, setIsLoading] = useState(false);
-
-  const existingCandidate = getCandidate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: existingCandidate?.name || "",
-      email: existingCandidate?.email || "",
-      phone: existingCandidate?.phone || "",
-      skills: existingCandidate?.skills as string[],
-      experience: existingCandidate?.experience || 0,
-      education: existingCandidate?.education || "",
-      bio: existingCandidate?.bio || "",
+      name: candidate?.name || "",
+      email: candidate?.email || "",
+      phone: candidate?.phone || "",
+      skills: candidate?.skills.join(", ") || "",
+      experience: candidate?.experience || 0,
+      education: candidate?.education || "",
+      bio: candidate?.bio || "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     setTimeout(() => {
-      createOrUpdateCandidate(values);
+      updateCandidate(values);
       setIsLoading(false);
-      router.push("/candidate");
+      router.push("/candidate/dashboard");
     }, 1000);
   }
 
   return (
     <div className="container max-w-2xl mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">
-        {existingCandidate ? "Update Profile" : "Candidate Registration"}
+        {candidate ? "Update Profile" : "Candidate Registration"}
       </h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -194,7 +192,7 @@ export default function CandidateLogin() {
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading
               ? "Submitting..."
-              : existingCandidate
+              : candidate
               ? "Update Profile"
               : "Register"}
           </Button>

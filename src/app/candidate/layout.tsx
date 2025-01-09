@@ -1,10 +1,13 @@
+"use client";
 import Navbar from "@/components/Navbar";
+import { useCandidate } from "@/lib/hooks/useCandidate";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  useCandidate();
   return (
     <div className={`flex flex-col antialiased`}>
       <Navbar />
